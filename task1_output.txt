@@ -1,0 +1,22 @@
+TASK 1 - Hardware probe and serial baseline
+Student ID: 230103059
+Student ID seed: 230103059
+Run UTC: 2026-10-23T09:52:00+00:00
+OS: Linux-6.18.55-x86_64-with-glibc2.41
+CPU: AMD EPYC 9V74 80-Core Processor
+Logical cores (os.cpu_count): 3
+Physical cores reported by OS: 3
+CPU affinity: [0, 1, 2]
+Container CPU quota: 2.000 CPU equivalents
+Python: 3.12.14; NumPy: 2.3.5; dtype: float64
+Native kernels: gcc -O3 -std=c11 -shared -fPIC -pthread (no fast-math)
+Timings are actual wall-clock measurements on this environment.
+Elements: 20,000,000; allocation: 160,000,000 bytes
+Reduction threads: 1; scalar native loops; population std (ddof=0)
+Sum: 9999270.1945176646
+Mean: 0.49996350972588322
+Standard deviation: 0.28869280406567394
+Generation wall time (ms): 66.564451
+Serial statistics wall time (ms): 36.789735
+Generation + statistics wall time (ms): 103.354186
+Verification: PASS (independent NumPy sum and standard deviation)

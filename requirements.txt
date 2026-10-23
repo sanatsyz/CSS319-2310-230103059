@@ -1,0 +1,3 @@
+numpy>=2.0
+psutil>=5.9
+threadpoolctl>=3.0
