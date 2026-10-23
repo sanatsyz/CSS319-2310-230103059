@@ -1,0 +1,30 @@
+Task 8: CPU matrix multiplication geometry
+Student ID: 230103059
+Student ID seed: 230103059
+Run UTC: 2026-10-23T09:52:14+00:00
+OS: Linux-6.18.55-x86_64-with-glibc2.41
+CPU: AMD EPYC 9V74 80-Core Processor
+Logical cores (os.cpu_count): 3
+Physical cores reported by OS: 3
+CPU affinity: [0, 1, 2]
+Container CPU quota: 2.000 CPU equivalents
+Python: 3.12.14; NumPy: 2.3.5; dtype: float64
+Native kernels: gcc -O3 -std=c11 -shared -fPIC -pthread (no fast-math)
+Timings are actual wall-clock measurements on this environment.
+GPU path: no NVIDIA GPU available; running the CPU alternative.
+Matrix dimensions: 1024 x 1024, dtype=float64; workers=3
+Trials per geometry: 3; report median wall-clock time
+Timing: synchronized worker release through last completion; excludes pool startup/teardown, inputs, validation.
+Naive loop order: i-j-k; tiled loop order: i-k-j within blocks.
+Runtime changes reflect both blocking and loop locality; hardware cache misses are not measured.
+Geometry       |  Wall time (ms) |   Speedup |  Delta vs naive (ms)
+----------------------------------------------------------------------
+Non-tiled      |     3379.919288 |    1.000x |             0.000000
+  Raw trials (ms): 3367.348873, 3383.422540, 3379.919288
+  Validation: PASS; maximum absolute error=1.251e-12
+16 x 16        |      166.667670 |   20.279x |         -3213.251618
+  Raw trials (ms): 124.135070, 166.667670, 172.026853
+  Validation: PASS; maximum absolute error=1.251e-12
+64 x 64        |      114.618831 |   29.488x |         -3265.300457
+  Raw trials (ms): 138.514434, 79.226453, 114.618831
+  Validation: PASS; maximum absolute error=1.251e-12
