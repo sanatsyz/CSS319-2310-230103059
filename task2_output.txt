@@ -1,0 +1,34 @@
+TASK 2 - Multi-core scaling versus Amdahl's law
+Student ID: 230103059
+Student ID seed: 230103059
+Run UTC: 2026-10-23T09:52:00+00:00
+OS: Linux-6.18.55-x86_64-with-glibc2.41
+CPU: AMD EPYC 9V74 80-Core Processor
+Logical cores (os.cpu_count): 3
+Physical cores reported by OS: 3
+CPU affinity: [0, 1, 2]
+Container CPU quota: 2.000 CPU equivalents
+Python: 3.12.14; NumPy: 2.3.5; dtype: float64
+Native kernels: gcc -O3 -std=c11 -shared -fPIC -pthread (no fast-math)
+Timings are actual wall-clock measurements on this environment.
+Elements: 20,000,000; repetitions per worker count: 5
+Same native summation kernel at every worker count; final partials use math.fsum.
+Timing: ready-worker release through final reduction; excludes pool startup,
+compilation, input generation and correctness checks; median of measured runs.
+P = 0.95; Amdahl(p) = 1 / (0.05 + 0.95 / p)
+Raw wall times p=1 (ms): 19.042680, 17.583088, 17.543919, 18.429846, 17.718883
+Raw wall times p=2 (ms): 11.433785, 14.102915, 10.614840, 21.791536, 10.406215
+Raw wall times p=4 (ms): 8.681940, 8.956773, 8.392132, 9.505411, 8.832256
+Raw wall times p=3 (ms): 8.861425, 11.133065, 10.489876, 8.931751, 9.750816
+Raw wall times p=6 (ms): 10.046687, 9.826861, 8.643707, 8.650738, 8.742295
+  Cores |   Wall Time (ms) |    Speedup |  Amdahl Upper Bound
+-----------------------------------------------------------------
+      1 |        17.718883 |   1.000000 |            1.000000
+      2 |        11.433785 |   1.549695 |            1.904762
+      4 |         8.832256 |   2.006156 |            3.478261
+      3 |         9.750816 |   1.817169 |            2.727273
+      6 |         8.742295 |   2.026800 |            4.800000
+Verified sum (serial reference): 9999270.1945176646
+Verification: PASS; tiny rounding differences from partitioning are expected.
+Amdahl assumes ideal hardware and a fixed parallel fraction; measured results
+also reflect memory access, scheduling and the reported container CPU quota.
