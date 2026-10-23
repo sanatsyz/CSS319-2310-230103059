@@ -1,0 +1,22 @@
+Task 3 - Cache line contention / false sharing
+Student ID: 230103059
+Student ID seed: 230103059
+Run UTC: 2026-10-23T09:52:00+00:00
+OS: Linux-6.18.55-x86_64-with-glibc2.41
+CPU: AMD EPYC 9V74 80-Core Processor
+Logical cores (os.cpu_count): 3
+Physical cores reported by OS: 3
+CPU affinity: [0, 1, 2]
+Container CPU quota: 2.000 CPU equivalents
+Python: 3.12.14; NumPy: 2.3.5; dtype: float64
+Native kernels: gcc -O3 -std=c11 -shared -fPIC -pthread (no fast-math)
+Timings are actual wall-clock measurements on this environment.
+Worker threads (detected physical cores): 3
+Increments per thread: 50,000,000
+Native volatile uint64 loads/stores; identical loop in both layouts
+Both arrays begin at a 64-byte boundary; padded stride = 64 bytes
+Timer includes worker dispatch, barrier release, and completion
+Layout                   |    Wall Time (ms) | Final counts
+Unpadded Shared          |        124.931259 | [50000000, 50000000, 50000000]
+Padded (64-byte stride)  |         19.547050 | [50000000, 50000000, 50000000]
+Execution ratio (Unpadded / Padded): 6.391310x
