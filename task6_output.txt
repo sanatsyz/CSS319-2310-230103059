@@ -1,0 +1,28 @@
+Task 6 - Synchronization cost and data loss
+Student ID: 230103059
+Student ID seed: 230103059
+Run UTC: 2026-10-23T09:52:03+00:00
+OS: Linux-6.18.55-x86_64-with-glibc2.41
+CPU: AMD EPYC 9V74 80-Core Processor
+Logical cores (os.cpu_count): 3
+Physical cores reported by OS: 3
+CPU affinity: [0, 1, 2]
+Container CPU quota: 2.000 CPU equivalents
+Python: 3.12.14; NumPy: 2.3.5; dtype: float64
+Native kernels: gcc -O3 -std=c11 -shared -fPIC -pthread (no fast-math)
+Timings are actual wall-clock measurements on this environment.
+Parallel native threads: 4
+Increment attempts per thread: 2,000,000
+Unlocked: separate relaxed load and store, without an atomic read-modify-write
+Individual accesses avoid C undefined behavior; the compound increment remains racy
+Locked: pthread_mutex protects each complete read-modify-write
+Timer includes worker dispatch, barrier release, and completion
+Expected final value: 8,000,000
+Unlocked actual final value: 5,151,229
+Updates lost: 2,848,771 (35.609637%)
+Unlocked wall time: 4.714210 ms
+Mutex actual final value: 8,000,000
+Mutex wall time: 114.386356 ms
+Synchronization time penalty: 109.672146 ms
+Mutex / Unlocked time ratio: 24.264162x
+Synchronization overhead: 2326.416218%
