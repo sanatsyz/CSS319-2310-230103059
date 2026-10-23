@@ -1,0 +1,47 @@
+Task 5: parallel overhead crossover
+Student ID: 230103059
+Student ID seed: 230103059
+Run UTC: 2026-10-23T09:52:02+00:00
+OS: Linux-6.18.55-x86_64-with-glibc2.41
+CPU: AMD EPYC 9V74 80-Core Processor
+Logical cores (os.cpu_count): 3
+Physical cores reported by OS: 3
+CPU affinity: [0, 1, 2]
+Container CPU quota: 2.000 CPU equivalents
+Python: 3.12.14; NumPy: 2.3.5; dtype: float64
+Native kernels: gcc -O3 -std=c11 -shared -fPIC -pthread (no fast-math)
+Timings are actual wall-clock measurements on this environment.
+Workers: 3 (all os.cpu_count() logical CPUs)
+Kernel: float64 y[i] = 1.25*x[i] - 0.75; 7 measured repeats
+Serial and parallel use the same native C kernel; ctypes releases the GIL.
+Timer includes kernel call; parallel also includes dispatch and join.
+Reusable pool startup/shutdown, allocation, warmup, validation are excluded.
+Order alternates each repeat; displayed latency is the median.
+
+           N |    Serial (ms) |   Parallel (ms) |   Speedup | Result
+--------------------------------------------------------------------------------
+         100 |       0.001543 |        0.091848 |    0.0168 | SLOWER
+  serial sample ms:   0.002875, 0.001933, 0.001112, 0.005809, 0.001032, 0.001543, 0.001022
+  parallel sample ms: 0.068042, 0.076675, 0.091848, 0.123786, 0.112680, 0.106230, 0.074122
+       1,000 |       0.002023 |        0.083687 |    0.0242 | SLOWER
+  serial sample ms:   0.004056, 0.004266, 0.002023, 0.002123, 0.001362, 0.001682, 0.001212
+  parallel sample ms: 0.406403, 0.126060, 0.099160, 0.056245, 0.049395, 0.083687, 0.072970
+      10,000 |       0.002904 |        0.082284 |    0.0353 | SLOWER
+  serial sample ms:   0.004918, 0.003976, 0.002614, 0.002904, 0.002483, 0.004437, 0.002534
+  parallel sample ms: 0.149566, 0.082284, 0.062865, 0.078088, 0.103696, 0.096716, 0.050597
+     100,000 |       0.021131 |        0.086440 |    0.2445 | SLOWER
+  serial sample ms:   0.022625, 0.021182, 0.018788, 0.027020, 0.020321, 0.021131, 0.020210
+  parallel sample ms: 0.086440, 0.090987, 0.378682, 0.080030, 0.096205, 0.061843, 0.081152
+   1,000,000 |       0.288155 |        0.317810 |    0.9067 | SLOWER
+  serial sample ms:   0.336467, 0.288155, 0.256547, 0.307554, 0.236347, 0.289897, 0.222916
+  parallel sample ms: 0.317810, 0.367074, 0.323618, 0.481436, 0.255605, 0.234854, 0.231158
+  10,000,000 |       5.580766 |        4.500257 |    1.2401 | FASTER
+  serial sample ms:   5.046281, 5.342648, 5.783061, 5.580766, 6.520514, 5.716071, 5.465923
+  parallel sample ms: 4.564514, 4.342860, 4.658516, 4.447337, 4.500257, 4.052952, 4.569822
+Validation: every output element matches the serial mathematical result.
+
+Programmatic crossover result (median end-to-end call latency):
+  SLOWER at N=1,000,000; FASTER at N=10,000,000. Sampled crossover bracket: (1,000,000, 10,000,000].
+  Smallest tested N with a parallel win: 10,000,000.
+  These are exact tested brackets, not an unmeasured exact integer threshold.
+  Timings and the crossover can change with host load and CPU quota.
