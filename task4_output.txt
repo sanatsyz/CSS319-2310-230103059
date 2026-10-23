@@ -1,0 +1,30 @@
+Task 4: scheduling under skew
+Student ID: 230103059
+Student ID seed: 230103059
+Run UTC: 2026-10-23T09:52:01+00:00
+OS: Linux-6.18.55-x86_64-with-glibc2.41
+CPU: AMD EPYC 9V74 80-Core Processor
+Logical cores (os.cpu_count): 3
+Physical cores reported by OS: 3
+CPU affinity: [0, 1, 2]
+Container CPU quota: 2.000 CPU equivalents
+Python: 3.12.14; NumPy: 2.3.5; dtype: float64
+Native kernels: gcc -O3 -std=c11 -shared -fPIC -pthread (no fast-math)
+Timings are actual wall-clock measurements on this environment.
+Items: 1000; workers: 4; dynamic chunk size: 1
+Work per item: sleep(0.0001 * (i % 20)) seconds
+Timer includes worker creation, start barrier, execution and shutdown.
+Queue/block preparation and correctness checks are outside the timer.
+First/last finish are worker completion offsets from the timer start.
+Strategy | Run | Wall time (ms) | First finish (ms) | Last finish (ms) | Delta (ms)
+Static   |   1 |     263.844213 |        252.950700 |       263.530260 |  10.579560
+Dynamic  |   1 |     258.314659 |        256.565787 |       258.045643 |   1.479856
+Dynamic  |   2 |     258.488797 |        256.977348 |       258.299291 |   1.321943
+Static   |   2 |     262.121451 |        251.212468 |       261.856641 |  10.644173
+Static   |   3 |     261.918880 |        251.542060 |       261.598161 |  10.056101
+Dynamic  |   3 |     261.033960 |        259.302303 |       260.814113 |   1.511810
+Median static wall time (ms): 262.121451
+Median dynamic wall time (ms): 258.488797
+Static / dynamic execution ratio: 1.014053x
+Validation: every item processed exactly once in every run (PASS).
+The repeating 20-item pattern nearly balances equal blocks; a large dynamic-scheduling speedup is not guaranteed.
