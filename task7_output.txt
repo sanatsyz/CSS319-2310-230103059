@@ -1,0 +1,44 @@
+TASK 7 - Arithmetic intensity versus memory bandwidth
+Student ID: 230103059
+Student ID seed: 230103059
+Run UTC: 2026-10-23T09:52:03+00:00
+OS: Linux-6.18.55-x86_64-with-glibc2.41
+CPU: AMD EPYC 9V74 80-Core Processor
+Logical cores (os.cpu_count): 3
+Physical cores reported by OS: 3
+CPU affinity: [0, 1, 2]
+Container CPU quota: 2.000 CPU equivalents
+Python: 3.12.14; NumPy: 2.3.5; dtype: float64
+Native kernels: gcc -O3 -std=c11 -shared -fPIC -pthread (no fast-math)
+Timings are actual wall-clock measurements on this environment.
+Elements: 30,000,000; bytes per array: 240,000,000
+Repetitions: 5; median wall time; preallocated/prefaulted arrays
+Timing: ready-worker release to results collected; pool startup/teardown,
+allocation, compilation, validation and warmup excluded for both kernels.
+
+Kernel A: Memory-bound copy B[i] = A[i]
+Raw wall times p=1 (ms): 15.616881, 15.971317, 15.096186, 15.980811, 14.337232
+Raw wall times p=2 (ms): 11.338200, 14.113605, 10.516169, 10.056020, 15.211511
+Raw wall times p=3 (ms): 11.340343, 11.614285, 11.382816, 10.422458, 11.900978
+  Cores |   Wall Time (ms) |    Speedup |  Efficiency |     GB/s*
+      1 |        15.616881 |   1.000000 |    1.000000 |    30.736
+      2 |        11.338200 |   1.377369 |    0.688684 |    42.335
+      3 |        11.382816 |   1.371970 |    0.457323 |    42.169
+
+Kernel B: Compute-bound sin(A)*cos(A)+tan(A)
+Raw wall times p=1 (ms): 642.288855, 662.984817, 619.617825, 607.949388, 625.004645
+Raw wall times p=2 (ms): 311.327662, 318.872099, 339.820461, 360.704589, 353.030913
+Raw wall times p=3 (ms): 407.913076, 397.626734, 353.335712, 335.518420, 296.739343
+  Cores |   Wall Time (ms) |    Speedup |  Efficiency |     GB/s*
+      1 |       625.004645 |   1.000000 |    1.000000 |     0.768
+      2 |       339.820461 |   1.839220 |    0.919610 |     1.413
+      3 |       353.335712 |   1.768869 |    0.589623 |     1.358
+
+* GB/s is effective read+write traffic, excluding write-allocate traffic.
+Last worker-count step: copy improvement 0.996x; compute 0.962x.
+No distinct memory-channel saturation plateau established for Kernel A.
+The measurements do not justify claiming a RAM bandwidth limit was reached.
+Kernel B performs more arithmetic per byte. Both kernels can also be limited
+by CPU quota/scheduling. Timings alone cannot prove memory-channel saturation;
+hardware performance counters would be needed to separate those causes.
+Verification: PASS (all output elements checked outside timings)
